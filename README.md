@@ -4,7 +4,7 @@
 **_This is a repository with the structure of MVVM for initial any projects which can save time for beginning a project._**
 
 ---
-**_We used the following points of skill and libraries:_**
+**_We used the following points of skill and libraries for the initial project:_**
 
 * RXJava2
 
