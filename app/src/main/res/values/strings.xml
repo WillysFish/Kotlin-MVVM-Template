@@ -1,0 +1,44 @@
+<resources>
+<!--    <string name="app_name">Kotlin-MVVM-Template</string>-->
+    <string name="aes_seed" translatable="false">myAesSeed</string>
+
+    <string name="cancel">Cancel</string>
+    <string name="request_permission_title">Request permission</string>
+    <string name="request_permission_des">Please go to Settings to open permission.</string>
+    <string name="request_permission_settings">Settings</string>
+
+    <string name="connect_to_camera">Connect to your Insta360 via WiFi.</string>
+    <string name="view_uncompleted_tours">View Uncompleted Tours</string>
+    <string name="device_connected">Insta360 connected successfully, now initiating camera view…</string>
+
+
+    <!-- ========= Error Code Start ========= -->
+    <string name="INTERNAL_SERVER_ERROR" translatable="false">Internal Server Error 伺服器錯誤</string>
+    <string name="BAD_GATEWAY" translatable="false">Bad Gateway</string>
+    <string name="NOT_FOUND" translatable="false">Not Found 未找到請求資源</string>
+    <string name="CONNECTION_TIMEOUT" translatable="false">Request Timeout 請求逾時</string>
+    <string name="NETWORK_NOT_CONNECT" translatable="false">Network Not Connect</string>
+    <string name="UNEXPECTED_ERROR" translatable="false">Unexpected Error</string>
+    <string name="UNKNOWN_HOST" translatable="false">UnknownHostException</string>
+    <string name="JSON_PARSE_EXCEPTION" translatable="false">JsonParseException</string>
+    <string name="NETWORK_ON_MAIN_THREAD" translatable="false">NetworkOnMainThreadException</string>
+    <string name="SOCKET_TIMEOUT" translatable="false">SocketTimeoutException</string>
+    <string name="INVALID_TOKEN" translatable="false">Invalid token\nError: Wrong recipient, payload audience != requiredAudience</string>
+    <string name="SEQUELIZE_UNIQUE" translatable="false">signup failed\nSequelizeUniqueConstraintError: Validation error</string>
+    <string name="LOGIN_REQUIRED" translatable="false">login required</string>
+    <string name="GOOGLE_SIGNIN_RESULT_FAIL" translatable="false">GoogleSignInResult Fail</string>
+    <string name="CANNOT_READ_PROPERTY_ID" translatable="false">unauthorized\\nTypeError: Cannot read property \'id\' of null</string>
+    <string name="ACCOUNT_ALREADY_EXISTED" translatable="false">Account already existed.</string>
+    <string name="UNKNOWN" translatable="false">Unknown</string>
+    <string name="NO_ERROR" translatable="false">No Error</string>
+    <!-- ========= Error Code Continue ========= -->
+
+    <string name="error_1025">Your account have expired. Please resubscribe to continue using the service.</string>
+    <string name="alert_body_signup_passowrd_too_short">Password needs at least 6 characters.</string>
+    <string name="err_sign_not_verified">This account is taken, but not verified. Please verify your account in the mailbox.</string>
+    <string name="alert_body_already_signed">This account has been used.</string>
+    <string name="err_upload_building_limit">Reached Livetours uploading limit. Please subscribe or upgrade your plan!</string>
+    <string name="err_upload_panorama_limit">Reached panorama(s) uploading limit.</string>
+    <string name="err_sign_mail">Invalid email format.</string>
+
+</resources>

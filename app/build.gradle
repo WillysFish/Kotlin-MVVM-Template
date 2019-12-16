@@ -1,0 +1,158 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+apply plugin: 'kotlin-kapt'
+
+apply plugin: "androidx.navigation.safeargs.kotlin"
+
+def VERSION_CODE = 10000
+def VERSION_NAME = "1.0.0"
+
+android {
+    compileSdkVersion 29
+    defaultConfig {
+        applicationId "com.willy.kotlin_mvvm_template"
+        minSdkVersion 26
+        targetSdkVersion 29
+        versionCode VERSION_CODE
+        versionName VERSION_NAME
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        // 指定只打包此指令集
+//        ndk {
+//            abiFilters 'arm64-v8a'
+//        }
+
+        multiDexEnabled true
+
+        kapt {
+            arguments {
+                // 將 DB schema export 在 app/schemas 路徑下
+                arg("room.schemaLocation", "$projectDir/schemas".toString())
+            }
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    // 使用 productFlavors 至少需要定義一個維度
+    flavorDimensions 'one'
+    productFlavors {
+        dev {
+            // 對應上方 signingConfig (Jenkins auto build 用)
+//            signingConfig signingConfigs.dev
+
+            // 依環境變動 applicationId (實現多環境同時安裝)
+            applicationId "com.willy.kotlin_mvvm_template" + "." + name
+
+            // 依環境變動 app_name (便於辯識 app 環境)
+            resValue "string", "app_name", "Automation " + name
+
+            // 依環境變動 versionCode
+            versionCode(VERSION_CODE + 100000)
+
+            buildConfigField "String", "PORTAL_URL", "\"https://xxx.xxx.us/\""
+            buildConfigField "String", "BASE_URL", "\"https://xxx.xxx.com/\""
+            buildConfigField "String", "VIEWER_URL", "\"http://xxx.xxx.com/\""
+        }
+        s_test {
+            applicationId "com.willy.kotlin_mvvm_template" + "." + name
+//            signingConfig signingConfigs.s_test
+            resValue "string", "app_name", "Automation " + name
+            versionCode(VERSION_CODE + 200000)
+
+            buildConfigField "String", "PORTAL_URL", "\"https://xxx.xxx.com/\""
+            buildConfigField "String", "BASE_URL", "\"https://xxx.xxx.com/\""
+            buildConfigField "String", "VIEWER_URL", "\"http://xxx.xxx.us/\""
+        }
+        production {
+//            signingConfig signingConfigs.production
+            resValue "string", "app_name", "Automation"
+
+            buildConfigField "String", "PORTAL_URL", "\"https://xxx.xxx.com/\""
+            buildConfigField "String", "BASE_URL", "\"https://xxx.xxx.com/\""
+            buildConfigField "String", "VIEWER_URL", "\"https://xxx.xxx.com/\""
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+}
+
+// 用來從本地端引入模組
+//repositories {
+//    flatDir {
+//        dirs 'libs'
+//    }
+//}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.core:core-ktx:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation "androidx.lifecycle:lifecycle-extensions:$rootProject.lifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$rootProject.lifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$rootProject.lifecycleVersion"
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    // WorkManager
+    implementation "androidx.work:work-runtime-ktx:$work_version"       // Kotlin + coroutines
+    implementation "androidx.work:work-rxjava2:$work_version"           // RxJava2 support
+
+    // Room
+    kapt "androidx.room:room-compiler:$room_version"
+    // For Kotlin use kapt instead of annotationProcessor
+    implementation "androidx.room:room-runtime:$room_version"
+    implementation "androidx.room:room-ktx:$room_version"
+    // Kotlin Extensions and Coroutines support for Room
+    implementation "androidx.room:room-rxjava2:$room_version"           // RxJava support for Room
+
+    // Navigation (Kotlin)
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+
+    // UI
+    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'com.google.android:flexbox:1.1.1'
+    implementation 'com.airbnb.android:lottie:3.1.0'            // Airbnb lottie 載入 json 動畫
+
+    // Program Utils
+    implementation 'com.orhanobut:logger:2.2.0'                 // log 顯示
+    implementation 'com.google.code.gson:gson:2.8.5'            // JSON 處理
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.9'          // rxjava2 & rxandroid
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+    implementation 'pub.devrel:easypermissions:3.0.0'           // 權限管理
+
+    // Networking
+    implementation "com.squareup.okhttp3:okhttp:3.12.0"
+    implementation "com.alibaba:fastjson:1.2.7"
+    implementation "com.liulishuo.filedownloader:library:1.7.7"
+    implementation 'com.squareup.retrofit2:retrofit:2.6.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.6.0'               // 與 Rxjava 配合的擴充包
+    implementation 'com.squareup.retrofit2:converter-gson:2.6.0'                // 用於將請求結果轉換為實體類型
+    implementation 'com.squareup.retrofit2:converter-scalars:2.6.0'             // 用於將請求結果轉換為基本類型，一般為字符串
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.6.0'             // 是為了配置緩存策略，必須跟okhttp同一版本號，否則會報錯
+}
