@@ -11,6 +11,8 @@ import android.net.wifi.WifiInfo
 import android.net.wifi.WifiManager
 import android.provider.Settings
 import android.text.TextUtils
+import android.widget.ProgressBar
+import com.willy.kotlin_mvvm_template.R
 
 /**
  * Created by Willy on 2019/11/01.
@@ -27,6 +29,33 @@ object Utils {
         intent.data = uri
         mActivity.startActivity(intent)
     }
+
+
+    /*** Loading Dialog ***/
+    private var progressDialog: AlertDialog? = null
+
+    fun closeLoadingDialog() {
+        progressDialog?.dismiss()
+    }
+
+    fun openLoadingDialog(
+        context: Context,
+        title: String = "",
+        content: String = ""
+    ) {
+        progressDialog?.let { if (it.isShowing) return }
+
+        val alert = AlertDialog.Builder(context, R.style.LoadingDialog)
+
+        if (!TextUtils.isEmpty(title)) alert.setTitle(title)
+        if (!TextUtils.isEmpty(content)) alert.setMessage(content)
+
+        alert.setView(ProgressBar(context))
+        alert.setCancelable(false)
+
+        progressDialog = alert.show()
+    }
+
 
     /**
      * Yes or No AlertDialog
