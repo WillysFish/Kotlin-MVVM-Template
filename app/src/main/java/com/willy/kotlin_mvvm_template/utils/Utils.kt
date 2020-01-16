@@ -18,22 +18,6 @@ import android.text.TextUtils
 object Utils {
 
     /**
-     * 取得 WIFI SSID
-     */
-    fun getWifiSsid(mContext: Context): String {
-        var ssid = ""
-        val wifiManager = mContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
-        val wifiInfo: WifiInfo
-
-        wifiInfo = wifiManager.connectionInfo
-        if (wifiInfo.supplicantState == SupplicantState.COMPLETED) {
-            ssid = wifiInfo.ssid
-            Log.i("wifiInfo.ssid = $ssid")
-        }
-        return ssid
-    }
-
-    /**
      * 開啟 APP 設定頁面
      */
     fun openSetting(mActivity: Activity) {

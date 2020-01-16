@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.willy.kotlin_mvvm_template.R
-import com.willy.kotlin_mvvm_template.base.BaseActivity
 import com.willy.kotlin_mvvm_template.base.BaseFragment
 import com.willy.kotlin_mvvm_template.utils.InjectorUtils
 import com.willy.kotlin_mvvm_template.utils.Log
