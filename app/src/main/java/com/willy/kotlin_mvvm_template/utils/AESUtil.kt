@@ -30,6 +30,7 @@ object AESUtil {
             encryptedText = c.doFinal(cleartext.toByteArray(charset("UTF-8")))
             return Base64.encodeToString(encryptedText, Base64.DEFAULT)
         } catch (e: Exception) {
+            Log.e(e,"AESUtil.encrypt")
             return ""
         }
 
