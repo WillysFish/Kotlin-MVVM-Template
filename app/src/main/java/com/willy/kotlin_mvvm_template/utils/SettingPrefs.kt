@@ -3,7 +3,7 @@ package com.willy.kotlin_mvvm_template.utils
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
-import android.util.Log
+import com.google.gson.Gson
 
 /**
  * Created by Willy on 2019/10/30.
@@ -17,6 +17,10 @@ class SettingPrefs(context: Context) {
     }
 
     private val prefs: SharedPreferences = context.getSharedPreferences("db", MODE_PRIVATE)
+
+    fun setObject(keyName: String, value: Any) = setString(keyName, Gson().toJson(value))
+
+    inline fun <reified T>getObject(keyName: String):T = Gson().fromJson(getString(keyName),T::class.java)
 
     fun setString(keyName: String, value: String) {
         try {
