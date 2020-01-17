@@ -20,7 +20,7 @@ class SettingPrefs(context: Context) {
 
     fun setObject(keyName: String, value: Any) = setString(keyName, Gson().toJson(value))
 
-    inline fun <reified T>getObject(keyName: String):T = Gson().fromJson(getString(keyName),T::class.java)
+    inline fun <reified T>getObject(keyName: String):T? = Gson().fromJson(getString(keyName),T::class.java)
 
     fun setString(keyName: String, value: String) {
         try {
